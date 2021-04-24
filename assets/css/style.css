@@ -11,9 +11,16 @@ body {
     background-color: var(--background);
     min-width: 575px;
 
-    border: 5px;
+    /* border: 5px;
     border-style: solid;
-    border-color: red;
+    border-color: red; */
+  }
+
+  button {
+    
+    /* border: 5px;
+    border-style: solid;
+    border-color: red; */
   }
 
   .content {
@@ -23,25 +30,32 @@ body {
     width: 100%;
     margin: 0 0;
 
-    border: 5px;
+    /* border: 5px;
     border-style: solid;
-    border-color: red;
+    border-color: red; */
 
+  }
+
+  .temp {
+    font-size: 12px;
+    border-top: 1px solid black;
+    text-align: left;
+    align-items: baseline;
   }
 
   header {
 
-    border: 5px;
+    /* border: 5px;
     border-color: green;
-    border-style: solid;
+    border-style: solid; */
   }
   nav {
 
-    border: 5px;
+    /* border: 5px;
     border-color: orange;
-    border-style: solid;
+    border-style: solid; */
   }
-  ul {
+  /* ul {
 
     border: 5px;
     border-color: yellow;
@@ -52,8 +66,8 @@ body {
     border: 5px;
     border-color: blue;
     border-style: solid;
-  }
-  h1 {
+  } */
+  /* h1 {
 
     border: 5px;
     border-color: red;
@@ -64,6 +78,16 @@ body {
     border: 5px;
     border-color: green;
     border-style: solid;
+  } */
+
+  .test {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    /* border: 5px;
+    border-color: blue;
+    border-style: solid; */
   }
 
 
@@ -99,28 +123,6 @@ div {
     margin: 20px 50px;
     width: 50%;
 }
-  
-.instructions {
-    text-align: center;
-    font-size: 24px;
-
-    border: 3px;
-    border-style: solid;
-    border-color: yellow;
-
-}
-
-.start {
-    align-self: center;
-    margin: 10px 10px;
-    padding: 5px;
-
-    border: 3px;
-    border-style: solid;
-    border-color: orange;
-
-}
-
 
   /* using a mobile-first approach, use `min-width` values going from narrow -> wide for a responsive design */
 @media screen and (min-width: 768px) {
