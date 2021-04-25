@@ -31,9 +31,6 @@ function showScores(){
             line.textContent = count + ". " + highscores[i]["init"] + "  " + highscores[i]["score"];
             scores.appendChild(line);
         }
-    } else {
-        var scores = document.querySelector(".score");
-        scores.remove();
     }
 }
 
