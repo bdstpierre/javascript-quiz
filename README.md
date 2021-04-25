@@ -10,9 +10,9 @@ The total application is made up of two html files (index.html and highscores.ht
 ## Usage
 To use the webpage just hit the start button.  The user will be presented with a series of questions.  For each question he should click on the correct answer.  Once he clicks on an answer the next question will appear and an indication of the correctness of the last answer will be displayed briefly below the next question.  If the answer si incorrect, 10 seconds will be removed from your score.  Your score at the end is 90 minus the time elapsed during the test an minus any penalties for wrong answers.
 
-    ```md
+   
     ![The start page of the website](./assets/images/thumbnail.png)
-    ```
+   
 
 ## License
 MIT License
