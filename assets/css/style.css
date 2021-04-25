@@ -43,17 +43,19 @@ body {
     align-items: baseline;
   }
 
-  header {
-
-    /* border: 5px;
-    border-color: green;
-    border-style: solid; */
+  button {
+    margin: 2px;
+    color: white;
+    background-color: purple;
+    border-radius: 8px;
+    padding: 4px;
   }
-  nav {
+  .nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 500px;;
 
-    /* border: 5px;
-    border-color: orange;
-    border-style: solid; */
   }
   /* ul {
 

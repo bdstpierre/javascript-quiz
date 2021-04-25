@@ -11,9 +11,11 @@ var secondsLeft = 90;
 var questionNo = 0;
 var response = "";
 var status = "";
-divTemp = "";
+var divTemp = "";
+var timerInterval = "";
+var timeoutID = "";
 
-quiz = [{
+var quiz = [{
     question: "Commonly used data types DO NOT include:",
     ans: ["1. strings", "2. booleans", "3. alerts", "4. numbers"],
     key: 2,
@@ -34,31 +36,38 @@ quiz = [{
     ans: ["1. JavaScript", "2. terminal / bash", "3. for loops", "4. console.log"],
     key: 3,
 }];
+var highscores = [{init: "", score: ""}];
 
 function init(){
     test.children[0].textContent = "Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your score/time by ten seconds!";
 
-    let theButton = document.createElement("button");
-    // answer.append(theButton);
+    theButton = document.createElement("button");
     theButton.append(buttonStart);
     answer.append(theButton);
     answer.children[0].setAttribute("data-no", "start");
     
     answer.addEventListener("click",function(event){
         event.preventDefault();
-    
+        
+        if (status) {
+            window.clearTimeout(timeoutID)
+            if (divTemp = document.querySelector(".temp")) {
+                divTemp.remove();               
+            }
+
+        }
+
         var element = event.target;
 
         if (element.matches("button")) {
-            console.log(event);
 
             var type = element.getAttribute("data-no");
             if ( type === "start"){
-                console.log(type);
                 startQuiz();
+            } else if (type === "save") {
+                storeInits(event);
             } else {
                 // else question answered
-                console.log(type);
                 gradeQuestion(event);
             }
         }
@@ -67,9 +76,9 @@ function init(){
 }
 
 function startQuiz (){
-    console.log("Quiz Started!");
+
     //Start timer
-    var timerInterval = setInterval(function() {
+    timerInterval = setInterval(function() {
         secondsLeft--;
         timeEl.textContent = secondsLeft;
 
@@ -110,12 +119,12 @@ function askQuestion(status) {
     if (status) {
         divTemp = document.createElement("div");
         divTemp.className = "temp";
-        // divTemp.append("<hr>");
         divTemp.append(status);
 
         test.append(divTemp);
-        var timeoutID = window.setTimeout(function() {
-            divTemp.remove();            
+        timeoutID = window.setTimeout(function() {
+            divTemp.remove(); 
+            status = "";           
         }, 2*1000);
 
     }
@@ -134,8 +143,8 @@ function gradeQuestion(event){
         status = "Right!";
     }
 
+    questionNo ++;
     if (questionNo < quiz.length){
-        questionNo ++;
         askQuestion(status);
     } else {
         clearInterval(timerInterval);
@@ -146,7 +155,88 @@ function gradeQuestion(event){
 }
 
 function endQuiz(){
-    // Things to do when the quiz timer runs out
+    var score = secondsLeft;
+    question.textContent = "All done!";
+
+    var buttonCount = answer.children.length;
+    for (var i = 0; i < buttonCount; i++){
+        var el = document.querySelector("button");
+        el.remove();
+    }
+    test.children[0].textContent = "Your final score is " + score;
+
+    console.log(answer);
+
+    var theForm = document.createElement("div");
+    theForm.setAttribute("class", "form")
+
+    var theLabel = document.createElement("label", "Enter initials");
+    theLabel.setAttribute("for", "inits");
+
+    var theInits = document.createElement("input");
+    theInits.setAttribute("type", "text");
+    theInits.setAttribute("name", "inits");
+    theInits.setAttribute("id", "inits");
+
+    var sub = document.createElement("button");
+    sub.setAttribute("data-no", "save");
+    sub.setAttribute("data-score", score);
+    sub.append("Submit");
+
+    theForm.appendChild(theLabel);
+    theForm.appendChild(theInits);
+    theForm.appendChild(sub);    
+
+    answer.appendChild(theForm);
+
 }
+
+function storeInits(event){
+
+    score = event.target.getAttribute("data-score");
+
+    theInits = document.querySelector("#inits");
+
+    var initials = theInits.value;
+    theInits.value = "";
+    var highscores = JSON.parse(localStorage.getItem("highscores"));
+
+    if (highscores !== null) {
+        highscores.push({init: initials, score: score});
+    } else {
+        highscores = [{init: initials, score: score}];
+    }
+    highscores.sort(compareValues('score', 'desc'));
+
+    localStorage.setItem("highscores", JSON.stringify(highscores));
+
+    window.location.href = "./highscores.html";
+
+
+}
+
+function compareValues(key, order = 'asc') {
+    return function innerSort(a, b) {
+      if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+        // property doesn't exist on either object
+        return 0;
+      }
+  
+      const varA = (typeof a[key] === 'string')
+        ? a[key].toUpperCase() : a[key];
+      const varB = (typeof b[key] === 'string')
+        ? b[key].toUpperCase() : b[key];
+  
+      let comparison = 0;
+      if (varA > varB) {
+        comparison = 1;
+      } else if (varA < varB) {
+        comparison = -1;
+      }
+      return (
+        (order === 'desc') ? (comparison * -1) : comparison
+      );
+    };
+  }
 
 init();
