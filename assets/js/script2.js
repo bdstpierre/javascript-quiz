@@ -15,7 +15,14 @@ function init(){
     
         var highscores = JSON.parse(localStorage.getItem("highscores"));
         localStorage.setItem("highscores", null);
-        showScores();
+        
+        var allScores = document.querySelectorAll(".score-row");
+       
+        for (var i = 0; i < allScores.length; i++) {
+   
+            allScores[i].remove();
+        }
+      
     });
 
 }
